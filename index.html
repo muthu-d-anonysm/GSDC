@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISO 27001: Practical Security Applications &amp; Real-World Lessons | GSDC Studio</title>
+    <style>
+        :root {
+  /* Primitive Color Tokens */
+  --color-white: rgba(255, 255, 255, 1);
+  --color-black: rgba(0, 0, 0, 1);
+  --color-cream-50: rgba(252, 252, 249, 1);
+  --color-cream-100: rgba(255, 255, 253, 1);
+  --color-gray-200: rgba(245, 245, 245, 1);
+  --color-gray-300: rgba(167, 169, 169, 1);
+  --color-gray-400: rgba(119, 124, 124, 1);
+  --color-slate-500: rgba(98, 108, 113, 1);
+  --color-brown-600: rgba(94, 82, 64, 1);
+  --color-charcoal-700: rgba(31, 33, 33, 1);
+  --color-charcoal-800: rgba(38, 40, 40, 1);
+  --color-slate-900: rgba(19, 52, 59, 1);
+  --color-teal-300: rgba(50, 184, 198, 1);
+  --color-teal-400: rgba(45, 166, 178, 1);
+  --color-teal-500: rgba(33, 128, 141, 1);
+  --color-teal-600: rgba(29, 116, 128, 1);
+  --color-teal-700: rgba(26, 104, 115, 1);
+  --color-teal-800: rgba(41, 150, 161, 1);
+  --color-red-400: rgba(255, 84, 89, 1);
+  --color-red-500: rgba(192, 21, 47, 1);
+  --color-orange-400: rgba(230, 129, 97, 1);
+  --color-orange-500: rgba(168, 75, 47, 1);
+
+  --color-brown-600-rgb: 94, 82, 64;
+  --color-teal-500-rgb: 33, 128, 141;
+  --color-slate-900-rgb: 19, 52, 59;
+  --color-slate-500-rgb: 98, 108, 113;
+  --color-red-500-rgb: 192, 21, 47;
+  --color-red-400-rgb: 255, 84, 89;
+  --color-orange-500-rgb: 168, 75, 47;
+  --color-orange-400-rgb: 230, 129, 97;
+
+  --color-bg-1: rgba(59, 130, 246, 0.08);
+  --color-bg-2: rgba(245, 158, 11, 0.08);
+  --color-bg-3: rgba(34, 197, 94, 0.08);
+  --color-bg-4: rgba(239, 68, 68, 0.08);
+  --color-bg-5: rgba(147, 51, 234, 0.08);
+  --color-bg-6: rgba(249, 115, 22, 0.08);
+  --color-bg-7: rgba(236, 72, 153, 0.08);
+  --color-bg-8: rgba(6, 182, 212, 0.08);
+
+  --color-background: var(--color-cream-50);
+  --color-surface: var(--color-cream-100);
+  --color-text: var(--color-slate-900);
+  --color-text-secondary: var(--color-slate-500);
+  --color-primary: var(--color-teal-500);
+  --color-primary-hover: var(--color-teal-600);
+  --color-primary-active: var(--color-teal-700);
+  --color-secondary: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-secondary-hover: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-secondary-active: rgba(var(--color-brown-600-rgb), 0.25);
+  --color-border: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-btn-primary-text: var(--color-cream-50);
+  --color-card-border: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-card-border-inner: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-error: var(--color-red-500);
+  --color-success: var(--color-teal-500);
+  --color-warning: var(--color-orange-500);
+  --color-info: var(--color-slate-500);
+  --color-focus-ring: rgba(var(--color-teal-500-rgb), 0.4);
+  --color-select-caret: rgba(var(--color-slate-900-rgb), 0.8);
+
+  --font-family-base: "FKGroteskNeue", "Geist", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-size-xs: 11px;
+  --font-size-sm: 12px;
+  --font-size-base: 14px;
+  --font-size-md: 14px;
+  --font-size-lg: 16px;
+  --font-size-xl: 18px;
+  --font-size-2xl: 20px;
+  --font-size-3xl: 24px;
+  --font-size-4xl: 30px;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 550;
+  --font-weight-bold: 600;
+
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-24: 24px;
+  --space-32: 32px;
+
+  --radius-base: 8px;
+  --radius-lg: 12px;
+
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-gray-400-rgb: 119, 124, 124;
+    --color-teal-300-rgb: 50, 184, 198;
+    --color-gray-300-rgb: 167, 169, 169;
+    --color-gray-200-rgb: 245, 245, 245;
+
+    --color-bg-1: rgba(29, 78, 216, 0.15);
+    --color-bg-2: rgba(180, 83, 9, 0.15);
+    --color-bg-3: rgba(21, 128, 61, 0.15);
+    --color-bg-4: rgba(185, 28, 28, 0.15);
+    --color-bg-5: rgba(107, 33, 168, 0.15);
+    --color-bg-6: rgba(194, 65, 12, 0.15);
+    --color-bg-7: rgba(190, 24, 93, 0.15);
+    --color-bg-8: rgba(8, 145, 178, 0.15);
+
+    --color-background: var(--color-charcoal-700);
+    --color-surface: var(--color-charcoal-800);
+    --color-text: var(--color-gray-200);
+    --color-text-secondary: rgba(var(--color-gray-300-rgb), 0.7);
+    --color-primary: var(--color-teal-300);
+    --color-primary-hover: var(--color-teal-400);
+    --color-error: var(--color-red-400);
+    --color-success: var(--color-teal-300);
+    --color-warning: var(--color-orange-400);
+    --color-border: rgba(var(--color-gray-400-rgb), 0.3);
+    --color-card-border: rgba(var(--color-gray-400-rgb), 0.2);
+  }
+}
+
+@font-face {
+  font-family: 'FKGroteskNeue';
+  src: url('https://r2cdn.perplexity.ai/fonts/FKGroteskNeue.woff2') format('woff2');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family-base);
+    background: var(--color-background);
+    color: var(--color-text);
+    overflow: hidden;
+}
+
+.presentation {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+}
+
+.slide {
+    width: 100%;
+    height: 100%;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: var(--space-32);
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: var(--color-surface);
+}
+
+.slide.active {
+    display: flex;
+}
+
+.slide-content {
+    max-width: 1200px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Navigation */
+.nav-controls {
+    position: fixed;
+    bottom: var(--space-32);
+    right: var(--space-32);
+    display: flex;
+    gap: var(--space-12);
+    z-index: 1000;
+}
+
+.nav-btn {
+    background: var(--color-primary);
+    color: var(--color-btn-primary-text);
+    border: none;
+    padding: var(--space-12) var(--space-24);
+    border-radius: var(--radius-base);
+    cursor: pointer;
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    transition: background 0.3s;
+}
+
+.nav-btn:hover {
+    background: var(--color-primary-hover);
+}
+
+.slide-counter {
+    position: fixed;
+    bottom: var(--space-32);
+    left: var(--space-32);
+    background: var(--color-secondary);
+    padding: var(--space-8) var(--space-16);
+    border-radius: var(--radius-base);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    z-index: 1000;
+}
+
+/* Title Slide */
+.title-slide {
+    background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #2563eb 100%);
+    color: white;
+}
+
+.title-slide h1 {
+    font-size: 48px;
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-16);
+    text-align: center;
+}
+
+.title-slide h2 {
+    font-size: 28px;
+    font-weight: var(--font-weight-medium);
+    margin-bottom: var(--space-32);
+    text-align: center;
+    opacity: 0.9;
+}
+
+.speaker-info {
+    display: flex;
+    align-items: center;
+    gap: var(--space-24);
+    margin-top: var(--space-32);
+    background: rgba(255, 255, 255, 0.1);
+    padding: var(--space-24);
+    border-radius: var(--radius-lg);
+}
+
+.speaker-photo img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.speaker-details h3 {
+    font-size: 24px;
+    margin-bottom: var(--space-8);
+}
+
+.speaker-details p {
+    font-size: var(--font-size-base);
+    opacity: 0.9;
+    margin: 4px 0;
+}
+
+.event-info {
+    text-align: center;
+    margin-top: var(--space-32);
+    font-size: var(--font-size-lg);
+}
+
+/* Standard Slides */
+h1 {
+    font-size: 42px;
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-32);
+    color: var(--color-primary);
+}
+
+h2 {
+    font-size: 32px;
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-24);
+}
+
+h3 {
+    font-size: 24px;
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-16);
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    font-size: var(--font-size-xl);
+    margin: var(--space-16) 0;
+    padding-left: var(--space-24);
+    position: relative;
+}
+
+li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--color-success);
+    font-weight: var(--font-weight-bold);
+}
+
+/* Case Study Cards */
+.case-study {
+    background: var(--color-bg-1);
+    padding: var(--space-24);
+    border-radius: var(--radius-lg);
+    border: 2px solid var(--color-card-border);
+    margin: var(--space-16) 0;
+}
+
+.severity-badge {
+    display: inline-block;
+    padding: var(--space-8) var(--space-16);
+    border-radius: var(--radius-base);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-16);
+}
+
+.severity-critical {
+    background: rgba(var(--color-red-500-rgb), 0.2);
+    color: var(--color-error);
+    border: 2px solid var(--color-error);
+}
+
+.severity-high {
+    background: rgba(var(--color-orange-500-rgb), 0.2);
+    color: var(--color-warning);
+    border: 2px solid var(--color-warning);
+}
+
+.iso-controls {
+    margin-top: var(--space-16);
+}
+
+.iso-controls h4 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-12);
+    color: var(--color-primary);
+}
+
+.control-tag {
+    display: inline-block;
+    background: var(--color-secondary);
+    padding: var(--space-8) var(--space-12);
+    border-radius: var(--radius-base);
+    margin: var(--space-8) var(--space-8) var(--space-8) 0;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+}
+
+/* Checklist */
+.checklist {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-16);
+    margin-top: var(--space-24);
+}
+
+.checklist-item {
+    background: var(--color-bg-2);
+    padding: var(--space-16);
+    border-radius: var(--radius-base);
+    border: 1px solid var(--color-card-border);
+}
+
+.checklist-item h4 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-12);
+    color: var(--color-primary);
+}
+
+.checklist-item li {
+    font-size: var(--font-size-base);
+    margin: var(--space-8) 0;
+}
+
+/* Meme Slides */
+.meme-container {
+    background: var(--color-bg-3);
+    padding: var(--space-32);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    border: 3px solid var(--color-card-border);
+}
+
+.meme-text {
+    font-size: 28px;
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-16);
+}
+
+.meme-emoji {
+    font-size: 80px;
+    margin: var(--space-24) 0;
+}
+
+.meme-caption {
+    font-size: var(--font-size-xl);
+    font-style: italic;
+    color: var(--color-text-secondary);
+}
+
+/* QR Code Slide */
+.qr-container {
+    text-align: center;
+}
+
+.qr-code {
+    width: 300px;
+    height: 300px;
+    background: white;
+    margin: var(--space-32) auto;
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 4px solid var(--color-primary);
+}
+
+.qr-code img {
+    width: 280px;
+    height: 280px;
+}
+
+/* Two Column Layout */
+.two-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-32);
+    margin-top: var(--space-24);
+}
+
+.column {
+    background: var(--color-bg-4);
+    padding: var(--space-24);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-card-border);
+}
+
+/* Attack Flow */
+.attack-flow {
+    display: flex;
+    align-items: center;
+    gap: var(--space-16);
+    margin: var(--space-24) 0;
+    flex-wrap: wrap;
+}
+
+.flow-step {
+    background: var(--color-bg-5);
+    padding: var(--space-16);
+    border-radius: var(--radius-base);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    flex: 1;
+    min-width: 150px;
+    text-align: center;
+}
+
+.flow-arrow {
+    font-size: 28px;
+    color: var(--color-primary);
+}
+
+/* Prevention Tips */
+.tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-16);
+    margin-top: var(--space-24);
+}
+
+.tip-card {
+    background: var(--color-bg-6);
+    padding: var(--space-16);
+    border-radius: var(--radius-base);
+    border: 2px solid var(--color-card-border);
+    text-align: center;
+}
+
+.tip-icon {
+    font-size: 36px;
+    margin-bottom: var(--space-12);
+}
+
+.tip-text {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .slide {
+        padding: var(--space-16);
+    }
+    
+    h1 {
+        font-size: 32px;
+    }
+    
+    h2 {
+        font-size: 24px;
+    }
+    
+    .two-column {
+        grid-template-columns: 1fr;
+    }
+    
+    .title-slide h1 {
+        font-size: 32px;
+    }
+    
+    .title-slide h2 {
+        font-size: 20px;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="presentation">
+        <!-- Slide 1: Title -->
+        <div class="slide active title-slide">
+            <div class="slide-content">
+                <h1>ISO 27001: Practical Security Applications &amp; Real-World Lessons</h1>
+                <h2>How Standards Prevent Real Attacks</h2>
+                <div class="speaker-info">
+                   <div class="speaker-photo">
+  <img src="https://github.com/muthu-d-anonysm/GSDC/blob/main/IMG_4401.jpg" alt="Speaker Photo">
+</div>
+                    <div class="speaker-details">
+                        <h3>Muthu D</h3>
+                        <p>Security Engineer &amp; Bug Bounty Hunter</p>
+                        <p>🏆 Top 24 Microsoft Global Security Researcher</p>
+                        <p>✅ Secured: Microsoft, Google, Apple, GitHub, Coinbase</p>
+                        <p>🔍 100+ Valid Vulnerabilities Reported</p>
+                    </div>
+                </div>
+                <div class="event-info">
+                    <p>GSDC Studio | 24 Nov 2025 </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: About Me & Session Overview -->
+        <div class="slide">
+            <div class="slide-content">
+                <h1>Today's Journey</h1>
+                <ul style="font-size: 24px;">
+                    <li>Why ISO 27001 matters beyond compliance checkboxes</li>
+                    <li>4 Real-world attack scenarios I've encountered</li>
+                    <li>How ISO 27001 controls prevent these attacks</li>
+                    <li>Practical checklist for implementation</li>
+                    <li>Prevention strategies you can apply Monday morning</li>
+                </ul>
+                <div style="margin-top: 40px; padding: 24px; background: var(--color-bg-1); border-radius: 12px;">
+                    <h3 style="color: var(--color-primary); margin-bottom: 16px;">My Background</h3>
+                    <p style="font-size: 18px;">Experience in VAPT, API Security, Cloud Security | Real vulnerabilities in Fortune 500 companies</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: The Problem -->
+        <div class="slide">
+            <div class="slide-content">
+                <h1>The Problem</h1>
+                <div class="two-column">
+                    <div class="column">
+                        <h3>❌ What Doesn't Work</h3>
+                        <ul style="font-size: 18px;">
+                            <li>Treating ISO 27001 as paperwork</li>
+                            <li>Annual security assessments only</li>
+                            <li>Ignoring developer security</li>
+                            <li>"Set it and forget it" mentality</li>
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h3>✅ What We'll Learn</h3>
+                        <ul style="font-size: 18px;">
+                            <li>ISO 27001 as a security framework</li>
+                            <li>Continuous security practices</li>
+                            <li>Securing the entire SDLC</li>
+                            <li>Building security culture</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: ISO 27001 Fundamentals -->
+        <div class="slide">
+            <div class="slide-content">
+                <h1>ISO 27001 in 60 Seconds</h1>
+                <div style="background: var(--color-bg-2); padding: 24px; border-radius: 12px; margin: 24px 0;">
+                    <h3 style="color: var(--color-primary);">International Standard for Information Security Management</h3>
+                </div>
+                <ul style="font-size: 22px;">
+                    <li><strong>114 Security Controls</strong> organized in 14 categories</li>
+                    <li><strong>Risk-based approach</strong> - identify, assess, treat</li>
+                    <li><strong>Continuous improvement</strong> - Plan-Do-Check-Act cycle</li>
+                    <li><strong>Covers people, processes, technology</strong></li>
+                    <li><strong>Certification</strong> proves your security maturity</li>
+                </ul>
+                <div style="margin-top: 32px; padding: 16px; background: var(--color-bg-3); border-radius: 8px; text-align: center;">
+                    <p style="font-size: 20px; font-weight: 600;">It's not about compliance. It's about <span style="color: var(--color-primary);">preventing real attacks</span>.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Key Controls Overview -->
+        <div class="slide">
+            <div class="slide-content">
+                <h1>Key ISO 27001 Control Areas</h1>
+                <div class="checklist" style="grid-template-columns: repeat(2, 1fr);">
+                    <div class="checklist-item">
+                        <h4>A.5 - Security Policies</h4>
+                        <p style="font-size: 14px;">Foundation for all security decisions</p>
+                    </div>
+                    <div class="checklist-item">
+                        <h4>A.6 - Organization</h4>
+                        <p style="font-size: 14px;">Roles, responsibilities, governance</p>
+                    </div>
+                    <div class="checklist-item">
+                        <h4>A.7 - Human Resources</h4>
+                        <p style="font-size: 14px;">People are your first line of defense</p>
+                    </div>
+                    <div class="checklist-item">
+                        <h4>A.8 - Asset Management</h4>
+                        <p style="font-size: 14px;">Know what you have, protect it</p>
+                    </div>
+                    <div class="checklist-item">
+                        <h4>A.9 - Access Control</h4>
+                        <p style="font-size: 14px;">Least privilege, MFA, reviews</p>
+                    </div>
+                    <div class="checklist-item">
+                        <h4>A.12 - Operations Security</h4>
+                        <p style="font-size: 14px;">Day-to-day security operations</p>
+                    </div>
+                    <div class="checklist-item">
+                        <h4>A.14 - Secure Development</h4>
+                        <p style="font-size: 14px;">Security in SDLC</p>
+                    </div>
+                    <div class="checklist-item">
+                        <h4>A.18 - Compliance</h4>
+                        <p style="font-size: 14px;">Legal, regulatory, audit</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Case Study 1 - Authentication Bypass -->
+        <div class="slide">
+            <div class="slide-content">
+                <h1>Case Study 1: Authentication Bypass Attack</h1>
+                <div class="case-study">
+                    <span class="severity-badge severity-critical">CRITICAL SEVERITY</span>
+                    <h3>The Vulnerability</h3>
+                    <p style="font-size: 18px; margin: 16px 0;">API endpoint accepts any user ID without backend verification. Attacker can change user_id parameter and access any account.</p>
+                    
+                    <div class="attack-flow">
+                        <div class="flow-step">Attacker logs in</div>
+                        <span class="flow-arrow">→</span>
+                        <div class="flow-step">Changes user_id in request</div>
+                        <span class="flow-arrow">→</span>
+                        <div class="flow-step">Backend trusts input</div>
+                        <span class="flow-arrow">→</span>
+                        <div class="flow-step">Full account access</div>
+                    </div>
+
+                    <h3 style="margin-top: 24px;">Real Impact</h3>
+                    <ul style="font-size: 16px;">
+                        <li>Access to any user account without password</li>
+                        <li>Read private messages, financial data, PII</li>
+                        <li>Perform actions as victim user</li>
+                        <li>Complete account takeover</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Case Study 1 - ISO Mapping -->
+        <div class="slide">
+            <div class="slide-content">
+                <h1>How ISO 27001 Prevents This</h1>
+                <div class="iso-controls">
+                    <h3>Relevant Controls:</h3>
+                    <div style="margin-top: 24px;">
+                        <div style="background: var(--color-bg-1); padding: 20px; border-radius: 8px; margin: 16px 0;">
+                            <span class="control-tag">A.9.1 - Access Control Policy</span>
+                            <p style="margin-top: 12px; font-size: 16px;"><strong>Requires:</strong> Formal access control policy based on business requirements. Never trust client-side input for authorization decisions.</p>
+                        </div>
+                        <div style="background: var(--color-bg-1); padding: 20px; border-radius: 8px; margin: 16px 0;">
+                            <span class="control-tag">A.9.2 - Identity Management</span>
+                            <p style="margin-top: 12px; font-size: 16px;"><strong>Requires:</strong> Unique user identification and authentication. Backend must verify user identity on every request.</p>
+                        </div>
+                        <div style="background: var(--color-bg-1); padding: 20px; border-radius: 8px; margin: 16px 0;">
+                            <span class="control-tag">A.14.2 - Secure Development</span>
+                            <p style="margin-top: 12px; font-size: 16px;"><strong>Requires:</strong> Security rules for software development. Includes code review and testing for authorization flaws.</p>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top: 24px; padding: 20px; background: var(--color-bg-3); border-radius: 8px;">
+                    <h4 style="color: var(--color-success);">✅ Prevention: Server-side authorization checks, session validation, least privilege</h4>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Meme 1 -->
+        <div class="slide">
+            <div class="slide-content">
+                <div class="meme-container">
+                    <div class="meme-text">Security Code Review</div>
+                    <div class="meme-emoji">👨‍💼</div>
+                    <div style="font-size: 24px; margin: 20px 0;">
+                        <strong>Boss watching:</strong> "Let me carefully validate every input..."<br><br>
+                        <strong>Boss not watching:</strong> "if (user_id) { return data; }" 😅
+                    </div>
+                    <div class="meme-caption">We've all been there. ISO 27001 makes it a habit, not a choice.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Case Study 2 - API Data Exposure -->
+        <div class="slide">
+            <div class="slide-content">
+                <h1>Case Study 2: API Data Exposure</h1>
+                <div class="case-study">
+                    <span class="severity-badge severity-high">HIGH SEVERITY</span>
+                    <h3>The Vulnerability</h3>
+                    <p style="font-size: 18px; margin: 16px 0;">API responses leak sensitive data - Credit card Details, Bank account details, debugging info - that should never be exposed to clients.</p>
+                    
+                    <div style="background: var(--color-bg-4); padding: 16px; border-radius: 8px; margin: 16px 0; font-family: monospace; font-size: 14px;">
+                        {<br>
+                        &nbsp;&nbsp;"user": "john@example.com",<br>
+                        &nbsp;&nbsp;"credit_card": "4242 4242 4242 4242", <span style="color: var(--color-error);">← EXPOSED!</span><br>
+                        &nbsp;&nbsp;"bank_account": "000123456789", <span style="color: var(--color-error);">← EXPOSED!</span><br>
+                        &nbsp;&nbsp;"debug_trace": "..." <span style="color: var(--color-error);">← EXPOSED!</span><br>
+                        }
+                    </div>
+
+                    <h3 style="margin-top: 24px;">Real Impact</h3>
+                    <ul style="font-size: 16px;">
+                        <li>Credit card leakage → Fraud & financial loss</li>
+                        <li>Bank account exposure → Identity theft</li>
+                        <li>Debug info aids further attacks</li>
+                        <li>Violates ISO 27001 data classification & secure development rules</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Case Study 2 - ISO Mapping -->
+        <div class="slide">
+            <div class="slide-content">
+                <h1>How ISO 27001 Prevents This</h1>
+                <div class="iso-controls">
+                    <h3>Relevant Controls:</h3>
+                    <div style="margin-top: 24px;">
+                        <div style="background: var(--color-bg-2); padding: 20px; border-radius: 8px; margin: 16px 0;">
+                            <span class="control-tag">A.8.2 - Data Classification</span>
+                            <p style="margin-top: 12px; font-size: 16px;"><strong>Requires:</strong> Classify all assets. Protect PII, financial data, tokens, and API secrets.</p>
+                        </div>
+                        <div style="background: var(--color-bg-2); padding: 20px; border-radius: 8px; margin: 16px 0;">
+                            <span class="control-tag">A.9.4 - Information Access Restrictions</span>
+                            <p style="margin-top: 12px; font-size: 16px;"><strong>Requires:</strong> Restrict access to information based on need-to-know. Output filtering in API responses.</p>
+                        </div>
+                        <div style="background: var(--color-bg-2); padding: 20px; border-radius: 8px; margin: 16px 0;">
+                            <span class="control-tag">A.12.4 - Logging &amp; Monitoring</span>
+                            <p style="margin-top: 12px; font-size: 16px;"><strong>Requires:</strong> Log and monitor system activity. Alert on sensitive data exposure patterns.</p>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top: 24px; padding: 20px; background: var(--color-bg-3); border-radius: 8px;">
+                    <h4 style="color: var(--color-success);">✅ Prevention: API response filtering, data classification, automated secret scanning</h4>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Case Study 3 - Cloud Misconfiguration -->
+        <div class="slide">
+            <div class="slide-content">
+                <h1>Case Study 3: Cloud Misconfiguration</h1>
+                <div class="case-study">
+                    <span class="severity-badge severity-critical">CRITICAL SEVERITY</span>
+                    <h3>The Vulnerability</h3>
+                    <p style="font-size: 18px; margin: 16px 0;">Public S3 buckets, overly permissive IAM roles, exposed dashboards, default credentials on cloud services.</p>
+                    
+                    <div class="two-column" style="margin-top: 20px;">
+                        <div>
+                            <h4>Common Misconfigurations:</h4>
+                            <ul style="font-size: 15px;">
+                                <li>S3 buckets set to public read/write</li>
+                                <li>IAM roles with wildcard permissions</li>
+                                <li>Security groups allowing 0.0.0.0/0</li>
+                                <li>Unencrypted storage volumes</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Real Examples:</h4>
+                            <ul style="font-size: 15px;">
+                                <li>Capital One: 100M records leaked</li>
+                                <li>Elasticsearch: 1.2B records exposed</li>
+                                <li>Facebook: 540M records public</li>
+                                <li>Happens daily to organizations</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Case Study 3 - ISO Mapping -->
+        <div class="slide">
+            <div class="slide-content">
+                <h1>How ISO 27001 Prevents This</h1>
+                <div class="iso-controls">
+                    <h3>Relevant Controls:</h3>
+                    <div style="margin-top: 24px;">
+                        <div style="background: var(--color-bg-3); padding: 20px; border-radius: 8px; margin: 16px 0;">
+                            <span class="control-tag">A.5.1 - Information Security Policy</span>
+                            <p style="margin-top: 12px; font-size: 16px;"><strong>Requires:</strong> Cloud security policy defining secure configuration baselines and standards.</p>
+                        </div>
+                        <div style="background: var(--color-bg-3); padding: 20px; border-radius: 8px; margin: 16px 0;">
+                            <span class="control-tag">A.8.1 - Asset Management</span>
+                            <p style="margin-top: 12px; font-size: 16px;"><strong>Requires:</strong> Complete inventory of cloud assets. Can't secure what you don't know exists.</p>
+                        </div>
+                        <div style="background: var(--color-bg-3); padding: 20px; border-radius: 8px; margin: 16px 0;">
+                            <span class="control-tag">A.12.1 - Operations Security</span>
+                            <p style="margin-top: 12px; font-size: 16px;"><strong>Requires:</strong> Change management, documented procedures, continuous monitoring of configurations.</p>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top: 24px; padding: 20px; background: var(--color-bg-3); border-radius: 8px;">
+                    <h4 style="color: var(--color-success);">✅ Prevention: Cloud security posture management (CSPM), infrastructure-as-code, automated compliance checks</h4>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Meme 2 -->
+        <div class="slide">
+            <div class="slide-content">
+                <div class="meme-container">
+                    <div class="meme-text">Password Security Evolution</div>
+                    <div style="font-size: 20px; margin: 30px 0;">
+                        <div style="margin: 20px 0; padding: 16px; background: var(--color-bg-4); border-radius: 8px;">
+                            <strong>Junior Dev:</strong> password123 😅
+                        </div>
+                        <div style="margin: 20px 0; padding: 16px; background: var(--color-bg-2); border-radius: 8px;">
+                            <strong>Mid-level:</strong> P@ssw0rd!#$%^&amp;*() 🤓
+                        </div>
+                        <div style="margin: 20px 0; padding: 16px; background: var(--color-bg-3); border-radius: 8px;">
+                            <strong>Senior Dev:</strong> *Uses password manager + MFA* 🔐
+                        </div>
+                        <div style="margin: 20px 0; padding: 16px; background: var(--color-bg-5); border-radius: 8px;">
+                            <strong>Security Engineer:</strong> *Passwordless authentication* 🚀
+                        </div>
+                    </div>
+                    <div class="meme-caption">ISO 27001 A.9.4.3 has entered the chat</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Case Study 4 - Code Repository Leaks -->
+        <div class="slide">
+            <div class="slide-content">
+                <h1>Case Study 4: Code Repository Security Risks</h1>
+                <div class="case-study">
+                    <span class="severity-badge severity-critical">CRITICAL SEVERITY</span>
+                    <h3>The Vulnerability</h3>
+                    <p style="font-size: 18px; margin: 16px 0;">Secrets, API keys, credentials, tokens hardcoded in GitHub, GitLab, or Bitbucket repositories - public or private.</p>
+                    
+                    <div style="background: var(--color-bg-4); padding: 16px; border-radius: 8px; margin: 16px 0; font-family: monospace; font-size: 13px;">
+                        # config.py<br>
+                        AWS_ACCESS_KEY = "AKIAIOSFODNN7EXAMPLE" <span style="color: var(--color-error);">← LEAKED!</span><br>
+                        DATABASE_URL = "postgres://user:pass@prod-db..." <span style="color: var(--color-error);">← LEAKED!</span><br>
+                        STRIPE_SECRET = "sk_live_abc123..." <span style="color: var(--color-error);">← LEAKED!</span><br>
+                        # Commit history preserved forever!
+                    </div>
+
+                    <h3 style="margin-top: 24px;">Real-World Examples</h3>
+                    <ul style="font-size: 16px;">
+                        <li><strong>Uber:</strong> GitHub credentials led to massive data breach</li>
+                        <li><strong>Toyota:</strong> 300GB source code leaked via public GitHub</li>
+                        <li><strong>Samsung:</strong> GitLab private keys exposed</li>
+                        <li><strong>Thousands daily:</strong> Automated bots scan for secrets 24/7</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Case Study 4 - Details & Prevention -->
+        <div class="slide">
+            <div class="slide-content">
+                <h1>Code Repository Risks: Deep Dive</h1>
+                <div class="two-column">
+                    <div class="column">
+                        <h3>How It Happens</h3>
+                        <ul style="font-size: 15px;">
+                            <li>Developer commits .env files</li>
+                            <li>Config files with credentials</li>
+                            <li>Private keys in repos</li>
+                            <li>Internal URLs/endpoints leaked</li>
+                            <li>Even in commit history after deletion</li>
+                            <li>Public forks contain secrets</li>
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h3>Why This Matters</h3>
+                        <ul style="font-size: 15px;">
+                            <li>Instant production access for attackers</li>
+                            <li>Financial loss (AWS bills, crypto theft)</li>
+                            <li>Data breach from DB credentials</li>
+                            <li>Supply chain compromise</li>
+                            <li>Reputational damage</li>
+                            <li>Regulatory fines (GDPR, etc.)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="margin-top: 24px; padding: 20px; background: var(--color-bg-4); border-radius: 8px;">
+                    <h4 style="color: var(--color-error); margin-bottom: 12px;">⚠️ Critical: Even private repos are at risk if employee credentials are compromised!</h4>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 16: Case Study 4 - ISO Mapping -->
+        <div class="slide">
+            <div class="slide-content">
+                <h1>How ISO 27001 Prevents Repository Leaks</h1>
+                <div class="iso-controls">
+                    <h3>Relevant Controls:</h3>
+                    <div style="margin-top: 24px;">
+                        <div style="background: var(--color-bg-5); padding: 20px; border-radius: 8px; margin: 16px 0;">
+                            <span class="control-tag">A.14.1 - Security in Development</span>
+                            <p style="margin-top: 12px; font-size: 16px;"><strong>Requires:</strong> Secure development lifecycle. Secret management policies, pre-commit hooks, code review gates.</p>
+                        </div>
+                        <div style="background: var(--color-bg-5); padding: 20px; border-radius: 8px; margin: 16px 0;">
+                            <span class="control-tag">A.8.2 - Information Classification</span>
+                            <p style="margin-top: 12px; font-size: 16px;"><strong>Requires:</strong> Classify secrets as confidential. Never in source code. Use secret managers (AWS Secrets Manager, HashiCorp Vault).</p>
+                        </div>
+                        <div style="background: var(--color-bg-5); padding: 20px; border-radius: 8px; margin: 16px 0;">
+                            <span class="control-tag">A.9.2 - Access Control</span>
+                            <p style="margin-top: 12px; font-size: 16px;"><strong>Requires:</strong> Repository access controls, MFA, regular access reviews, audit logs of all repository activity.</p>
+                        </div>
+                        <div style="background: var(--color-bg-5); padding: 20px; border-radius: 8px; margin: 16px 0;">
+                            <span class="control-tag">A.12.3 - Backup Controls</span>
+                            <p style="margin-top: 12px; font-size: 16px;"><strong>Requires:</strong> Secure backup procedures. Repository backups must be encrypted and access-controlled.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 17: Repository Security - Practical Prevention -->
+        <div class="slide">
+            <div class="slide-content">
+                <h1>Preventing Code Repository Leaks</h1>
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <div class="tip-icon">🔍</div>
+                        <div class="tip-text"><strong>Secret Scanning</strong><br>GitHub Advanced Security, GitGuardian, TruffleHog</div>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">🔐</div>
+                        <div class="tip-text"><strong>Secret Managers</strong><br>AWS Secrets Manager, Azure Key Vault, HashiCorp Vault</div>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">🚫</div>
+                        <div class="tip-text"><strong>Pre-commit Hooks</strong><br>Block commits containing secrets before they reach remote</div>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">👥</div>
+                        <div class="tip-text"><strong>Access Control</strong><br>Least privilege, MFA, regular reviews, branch protection</div>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">📚</div>
+                        <div class="tip-text"><strong>Developer Training</strong><br>Security awareness, secure coding practices</div>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">🔄</div>
+                        <div class="tip-text"><strong>Rotate Regularly</strong><br>Automatic secret rotation, short-lived credentials</div>
+                    </div>
+                </div>
+                <div style="margin-top: 24px; padding: 20px; background: var(--color-bg-3); border-radius: 8px; text-align: center;">
+                    <h4 style="color: var(--color-success);">✅ Implement in CI/CD pipeline - fail builds with exposed secrets!</h4>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 18: ISO 27001 Implementation Checklist -->
+        <div class="slide">
+            <div class="slide-content">
+                <h1>ISO 27001 Implementation Checklist</h1>
+                <div class="checklist">
+                    <div class="checklist-item">
+                        <h4>✓ A.5 - Security Policies</h4>
+                        <ul style="font-size: 14px;">
+                            <li>Policies defined &amp; approved</li>
+                            <li>Cover all critical areas</li>
+                            <li>Regular review &amp; updates</li>
+                        </ul>
+                    </div>
+                    <div class="checklist-item">
+                        <h4>✓ A.6 - Organization</h4>
+                        <ul style="font-size: 14px;">
+                            <li>Clear roles &amp; responsibilities</li>
+                            <li>Segregation of duties</li>
+                            <li>Security awareness culture</li>
+                        </ul>
+                    </div>
+                    <div class="checklist-item">
+                        <h4>✓ A.7 - Human Resources</h4>
+                        <ul style="font-size: 14px;">
+                            <li>Pre-employment screening</li>
+                            <li>Security training programs</li>
+                            <li>Disciplinary processes</li>
+                        </ul>
+                    </div>
+                    <div class="checklist-item">
+                        <h4>✓ A.8 - Asset Management</h4>
+                        <ul style="font-size: 14px;">
+                            <li>Complete asset inventory</li>
+                            <li>Data classification scheme</li>
+                            <li>Secure disposal procedures</li>
+                        </ul>
+                    </div>
+                    <div class="checklist-item">
+                        <h4>✓ A.9 - Access Control</h4>
+                        <ul style="font-size: 14px;">
+                            <li>Least privilege principle</li>
+                            <li>MFA enforcement</li>
+                            <li>Regular access reviews</li>
+                        </ul>
+                    </div>
+                    <div class="checklist-item">
+                        <h4>✓ A.12 - Operations Security</h4>
+                        <ul style="font-size: 14px;">
+                            <li>Change management process</li>
+                            <li>Incident response procedures</li>
+                            <li>Continuous monitoring</li>
+                        </ul>
+                    </div>
+                    <div class="checklist-item">
+                        <h4>✓ A.14 - Secure Development</h4>
+                        <ul style="font-size: 14px;">
+                            <li>Secure coding standards</li>
+                            <li>Code review process</li>
+                            <li>Dependency management</li>
+                        </ul>
+                    </div>
+                    <div class="checklist-item">
+                        <h4>✓ A.18 - Compliance</h4>
+                        <ul style="font-size: 14px;">
+                            <li>Regulatory compliance</li>
+                            <li>Internal audits</li>
+                            <li>Regular assessments</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 19: Case Study to Controls Mapping -->
+        <div class="slide">
+            <div class="slide-content">
+                <h1>Mapping Case Studies to ISO Controls</h1>
+                <table style="width: 100%; border-collapse: collapse; font-size: 15px;">
+                    <thead>
+                        <tr style="background: var(--color-primary); color: white;">
+                            <th style="padding: 12px; text-align: left;">Attack Scenario</th>
+                            <th style="padding: 12px; text-align: left;">Primary ISO Controls</th>
+                            <th style="padding: 12px; text-align: left;">Key Prevention</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background: var(--color-bg-1);">
+                            <td style="padding: 12px; border-bottom: 1px solid var(--color-border);"><strong>Authentication Bypass</strong></td>
+                            <td style="padding: 12px; border-bottom: 1px solid var(--color-border);">A.9.1, A.9.2, A.14.2</td>
+                            <td style="padding: 12px; border-bottom: 1px solid var(--color-border);">Backend auth checks</td>
+                        </tr>
+                        <tr style="background: var(--color-bg-2);">
+                            <td style="padding: 12px; border-bottom: 1px solid var(--color-border);"><strong>API Data Exposure</strong></td>
+                            <td style="padding: 12px; border-bottom: 1px solid var(--color-border);">A.8.2, A.9.4, A.12.4</td>
+                            <td style="padding: 12px; border-bottom: 1px solid var(--color-border);">Output filtering, classification</td>
+                        </tr>
+                        <tr style="background: var(--color-bg-3);">
+                            <td style="padding: 12px; border-bottom: 1px solid var(--color-border);"><strong>Cloud Misconfiguration</strong></td>
+                            <td style="padding: 12px; border-bottom: 1px solid var(--color-border);">A.5.1, A.8.1, A.12.1</td>
+                            <td style="padding: 12px; border-bottom: 1px solid var(--color-border);">CSPM, asset inventory</td>
+                        </tr>
+                        <tr style="background: var(--color-bg-4);">
+                            <td style="padding: 12px; border-bottom: 1px solid var(--color-border);"><strong>Code Repository Leaks</strong></td>
+                            <td style="padding: 12px; border-bottom: 1px solid var(--color-border);">A.14.1, A.8.2, A.9.2, A.12.3</td>
+                            <td style="padding: 12px; border-bottom: 1px solid var(--color-border);">Secret scanning, access control</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div style="margin-top: 32px; padding: 20px; background: var(--color-bg-5); border-radius: 8px;">
+                    <h3 style="color: var(--color-primary); text-align: center;">Every attack we've seen would have been prevented by proper ISO 27001 implementation</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 20: Meme 3 -->
+        <div class="slide">
+            <div class="slide-content">
+                <div class="meme-container">
+                    <div class="meme-text">DevOps Reality Check</div>
+                    <div class="meme-emoji">🚀</div>
+                    <div style="font-size: 22px; margin: 20px 0;">
+                        <strong>DevOps:</strong> "We need to deploy NOW! Customer is waiting!"<br><br>
+                        <strong>Security:</strong> "Did you run the security scan?"<br><br>
+                        <strong>DevOps:</strong> "...what security scan?" 😰<br><br>
+                    </div>
+                    <div class="meme-caption">A.14.2 - Security in Development Process<br>Shift left or pay later 💸</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 21: Prevention Best Practices -->
+        <div class="slide">
+            <div class="slide-content">
+                <h1>Prevention Best Practices</h1>
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <div class="tip-icon">🔄</div>
+                        <div class="tip-text"><strong>Continuous VAPT</strong><br>Not yearly - quarterly or continuous testing</div>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">🔍</div>
+                        <div class="tip-text"><strong>Secret Scanning</strong><br>CI/CD pipeline integration, pre-commit hooks</div>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">🔐</div>
+                        <div class="tip-text"><strong>Least Privilege</strong><br>Zero trust, just-in-time access</div>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">☁️</div>
+                        <div class="tip-text"><strong>Cloud Monitoring</strong><br>CSPM tools, automated compliance</div>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">👨‍💻</div>
+                        <div class="tip-text"><strong>Developer Training</strong><br>Security champions program</div>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">🎣</div>
+                        <div class="tip-text"><strong>Phishing Awareness</strong><br>Regular simulations &amp; training</div>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">👥</div>
+                        <div class="tip-text"><strong>Access Reviews</strong><br>Quarterly reviews, automated deprovisioning</div>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">🚨</div>
+                        <div class="tip-text"><strong>IR Drills</strong><br>Practice incident response regularly</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 22: Why Organizations Need This -->
+        <div class="slide">
+            <div class="slide-content">
+                <h1>Why Organizations Must Implement ISO 27001</h1>
+                <div class="two-column">
+                    <div class="column">
+                        <h3>Business Benefits</h3>
+                        <ul style="font-size: 16px;">
+                            <li>Reduce breach risk by 60-80%</li>
+                            <li>Customer trust &amp; competitive advantage</li>
+                            <li>Lower cyber insurance premiums</li>
+                            <li>Regulatory compliance (GDPR, HIPAA)</li>
+                            <li>Systematic risk management</li>
+                            <li>Clear accountability &amp; governance</li>
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h3>Technical Benefits</h3>
+                        <ul style="font-size: 16px;">
+                            <li>Structured security framework</li>
+                            <li>Prevent common attack vectors</li>
+                            <li>Faster incident detection &amp; response</li>
+                            <li>Security-aware development culture</li>
+                            <li>Continuous improvement process</li>
+                            <li>Measurable security posture</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="margin-top: 32px; padding: 24px; background: var(--color-bg-1); border-radius: 12px; text-align: center;">
+                    <h3 style="color: var(--color-primary); margin-bottom: 16px;">The Cost of NOT Implementing</h3>
+                    <p style="font-size: 18px;"><strong>Average data breach cost: $4.45M</strong> | <strong>Average ransomware payment: $1.85M</strong><br>
+                    ISO 27001 implementation: ~$50K-200K | <strong>ROI is clear.</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 23: Key Takeaways -->
+        <div class="slide">
+            <div class="slide-content">
+                <h1>Key Takeaways</h1>
+                <div style="background: var(--color-bg-3); padding: 32px; border-radius: 12px; margin: 24px 0;">
+                    <ul style="font-size: 22px;">
+                        <li style="margin: 24px 0;"><strong>ISO 27001 is not paperwork</strong> - it's a proven framework that prevents real attacks</li>
+                        <li style="margin: 24px 0;"><strong>Every case study we reviewed</strong> would have been prevented by proper controls</li>
+                        <li style="margin: 24px 0;"><strong>Developer security matters</strong> - code repositories, APIs, cloud configs are prime targets</li>
+                        <li style="margin: 24px 0;"><strong>Continuous monitoring beats annual audits</strong> - security is a process, not a project</li>
+                        <li style="margin: 24px 0;"><strong>Start small, iterate fast</strong> - implement high-impact controls first</li>
+                    </ul>
+                </div>
+                <div style="text-align: center; margin-top: 32px; padding: 24px; background: var(--color-primary); color: white; border-radius: 8px;">
+                    <h3 style="color: white;">Security is everyone's responsibility. ISO 27001 makes it systematic.</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 24: Q&A with LinkedIn -->
+        <div class="slide">
+            <div class="slide-content">
+                <div class="qr-container">
+                    <h1 style="text-align: center; margin-bottom: 24px;">Let's Connect!</h1>
+                    <h2 style="text-align: center; color: var(--color-text-secondary); margin-bottom: 40px;">Questions? Scan to connect on LinkedIn</h2>
+                    <div class="qr-code">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=https://www.linkedin.com/in/anonysm/" alt="LinkedIn QR Code">
+                    </div>
+                    <div style="text-align: center; margin-top: 32px;">
+                        <h3 style="color: var(--color-primary); margin-bottom: 16px;">linkedin.com/in/anonysm</h3>
+                        <p style="font-size: 20px; color: var(--color-text-secondary);">Open for discussions on security, bug bounty, ISO 27001 implementation</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 25: Thank You -->
+        <div class="slide">
+            <div class="slide-content" style="text-align: center;">
+                <h1 style="font-size: 56px; margin-bottom: 32px;">Thank You!</h1>
+                <h2 style="color: var(--color-text-secondary); margin-bottom: 48px;">Stay secure, stay compliant 🔐</h2>
+                <div style="background: var(--color-bg-1); padding: 32px; border-radius: 12px; margin: 40px auto; max-width: 800px;">
+                    <h3 style="color: var(--color-primary); margin-bottom: 24px;">Muthu D</h3>
+                    <p style="font-size: 18px; margin: 12px 0;">Security Engineer &amp; Bug Bounty Hunter</p>
+                    <p style="font-size: 18px; margin: 12px 0;">🏆 Top 24 Microsoft Global Security Researcher</p>
+                    <p style="font-size: 18px; margin: 12px 0;">📧 Connect: linkedin.com/in/anonysm</p>
+                </div>
+                <div style="margin-top: 48px;">
+                    <p style="font-size: 16px; color: var(--color-text-secondary);">GSDC Studio | 24 Nov 2025</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Controls -->
+    <div class="slide-counter">
+        <span id="current-slide">1</span> / <span id="total-slides">25</span>
+    </div>
+    <div class="nav-controls">
+        <button class="nav-btn" id="prev-btn" onclick="previousSlide()">← Previous</button>
+        <button class="nav-btn" id="next-btn" onclick="nextSlide()">Next →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        document.getElementById('total-slides').textContent = totalSlides;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                if (i === index) {
+                    slide.classList.add('active');
+                }
+            });
+            
+            document.getElementById('current-slide').textContent = index + 1;
+            
+            // Update button states
+            document.getElementById('prev-btn').disabled = index === 0;
+            document.getElementById('next-btn').disabled = index === totalSlides - 1;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        }
+
+        function previousSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                previousSlide();
+            }
+        });
+
+        // Initialize
+        showSlide(0);
+    </script>
+</body>
+</html>
